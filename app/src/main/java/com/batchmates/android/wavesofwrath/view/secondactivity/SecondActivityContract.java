@@ -3,6 +3,7 @@ package com.batchmates.android.wavesofwrath.view.secondactivity;
 import com.batchmates.android.wavesofwrath.BasePresenter;
 import com.batchmates.android.wavesofwrath.BaseView;
 import com.batchmates.android.wavesofwrath.model.PlaceInformation;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface SecondActivityContract {
 
     interface  Presenter extends BasePresenter<View>
     {
-        void placesCloseby();
+        void placesCloseby(LatLng latLng);
         void checkEncounter(Marker myself);
     }
 

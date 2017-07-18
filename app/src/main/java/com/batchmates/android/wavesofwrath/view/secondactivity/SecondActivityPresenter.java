@@ -40,8 +40,8 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
     }
 
     @Override
-    public void placesCloseby() {
-        retrofit2.Call<ClosePlacesPojo> myCall=RetroFitHelper.callPlaces();
+    public void placesCloseby(LatLng latLngCurrent) {
+        retrofit2.Call<ClosePlacesPojo> myCall=RetroFitHelper.callPlaces(latLngCurrent);
         myCall.enqueue(new Callback<ClosePlacesPojo>() {
             @Override
             public void onResponse(Call<ClosePlacesPojo> call, Response<ClosePlacesPojo> response) {

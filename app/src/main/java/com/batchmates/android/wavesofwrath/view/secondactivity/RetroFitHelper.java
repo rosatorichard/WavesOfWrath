@@ -2,6 +2,7 @@ package com.batchmates.android.wavesofwrath.view.secondactivity;
 
 import com.batchmates.android.wavesofwrath.model.closeplaces.ClosePlacesPojo;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -19,12 +20,14 @@ public class RetroFitHelper {
     private static final String BASE_URL="https://maps.googleapis.com/maps/";
     private static final String QUERY_ZIP="500";
     private static final String APP_ID="AIzaSyCZbgGY4IMPsS20u_dVlhZUy-MTq0TWlss";
-    private static final String QUERY_LOCAL = "33.9896094,-84.45333540000001";
+    private static  String QUERY_LOCAL = "33.9896094,-84.45333540000001";
     private static final int FOOD=Place.TYPE_FOOD;
 
 
-    public static Call<ClosePlacesPojo> callPlaces()
+    public static Call<ClosePlacesPojo> callPlaces(LatLng latLng)
     {
+        String newString= latLng.latitude+","+latLng.longitude;
+        QUERY_LOCAL=newString;
         Retrofit retrofit=Create();
         places places = retrofit.create(RetroFitHelper.places.class);
         return places.getNearbyLocations(QUERY_LOCAL,500);

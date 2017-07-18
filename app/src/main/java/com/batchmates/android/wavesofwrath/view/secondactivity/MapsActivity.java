@@ -64,7 +64,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         presenter.addView(this);
 
         LocationTracker();
-        presenter.placesCloseby();
 
 
         createMyMarker();
@@ -104,6 +103,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .title(getIntent().getStringExtra("shipName"))
                         .snippet(getIntent().getStringExtra("captainName")));
+                LatLng currentLat=new LatLng(location.getLatitude(),location.getLongitude());
+                presenter.placesCloseby(currentLat);
             }
         });
 
