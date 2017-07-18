@@ -20,7 +20,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 
     @Override
     public void setUpCaptain(String shipName, String captainName) {
-        YourShip yourShip= YourShip.getInstance(shipName,captainName,"Wood plank",0,0);
+        YourShip yourShip= YourShip.getInstance(shipName,captainName,"Wood plank",0,1);
         view.readyToSetSail(yourShip);
     }
 
