@@ -34,7 +34,8 @@
 
         <activity
             android:name=".view.secondactivity.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".view.thirdactivity.BattleActivity"></activity>
     </application>
 
 </manifest>
