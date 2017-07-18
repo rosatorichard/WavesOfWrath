@@ -66,7 +66,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationTracker();
 
 
-        createMyMarker();
     }
 
     private void createMyMarker() {
@@ -75,6 +74,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.pirate_ship);
         Bitmap b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        LatLng position = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        myself = mMap.addMarker(new MarkerOptions().position(position)
+                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                .title(getIntent().getStringExtra("shipName"))
+                .snippet(getIntent().getStringExtra("captainName")));
+
     }
 
     private void LocationTracker() {
@@ -99,10 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng position = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
                 //right here
-                myself = mMap.addMarker(new MarkerOptions().position(position)
-                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                        .title(getIntent().getStringExtra("shipName"))
-                        .snippet(getIntent().getStringExtra("captainName")));
+                createMyMarker();
                 LatLng currentLat=new LatLng(location.getLatitude(),location.getLongitude());
                 presenter.placesCloseby(currentLat);
             }
@@ -171,7 +173,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         currentLocation = location;
         myselfLatLgn = new LatLng(location.getLatitude(), location.getLongitude());
         myself.setPosition(myselfLatLgn);
+        presenter.placesCloseby(myselfLatLgn);
 
+        Log.d(TAG, "onLocationChanged: Location Changed");
         //how i will set up encounters
         //presenter.checkEncounter(myself);
 
@@ -195,6 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void returnedPlaces(List<PlaceInformation> placeInformations) {
 
+        mMap.clear();
         currentList = placeInformations;
         int height = 125;
         int width = 125;
@@ -207,5 +212,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(placeInformations.get(i).getLocation()).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
         }
+        createMyMarker();
     }
 }
