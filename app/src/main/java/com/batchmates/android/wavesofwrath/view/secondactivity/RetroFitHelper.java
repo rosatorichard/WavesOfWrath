@@ -30,7 +30,7 @@ public class RetroFitHelper {
         QUERY_LOCAL=newString;
         Retrofit retrofit=Create();
         places places = retrofit.create(RetroFitHelper.places.class);
-        return places.getNearbyLocations(QUERY_LOCAL,500);
+        return places.getNearbyLocations(QUERY_LOCAL,500,APP_ID,"true");
 
     }
 
@@ -55,8 +55,8 @@ public class RetroFitHelper {
     public interface places{
 
 //        &pagetoken
-        @GET("api/place/nearbysearch/json?sensor=true&key=AIzaSyCZbgGY4IMPsS20u_dVlhZUy-MTq0TWlss")
-        Call<ClosePlacesPojo> getNearbyLocations(@Query("location")String coord,@Query("radius")int radius);
+        @GET("api/place/nearbysearch/json?")
+        Call<ClosePlacesPojo> getNearbyLocations(@Query("location")String coord,@Query("radius")int radius,@Query("key")String key,@Query("sensor")String bool);
 
 //        @GET("api/place/nearbysearch/json?sensor=true&key=AIzaSyCZbgGY4IMPsS20u_dVlhZUy-MTq0TWlss")
 //        Call<ClosePlacesPojo> getNearbyLocations2(@Query("location")String coord,@Query("type")int food,@Query("radius")int radius);
