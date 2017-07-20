@@ -51,44 +51,46 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
     @Override
     public void placesCloseby(LatLng latLngCurrent) {
 
-
-        retrofit2.Call<ClosePlacesPojo> myCall=RetroFitHelper.callPlaces(latLngCurrent);
-        myCall.enqueue(new Callback<ClosePlacesPojo>() {
-            @Override
-            public void onResponse(Call<ClosePlacesPojo> call, Response<ClosePlacesPojo> response) {
-                for (int i = 0; i < 20; i++) {
-                    latLng=new LatLng(response.body().getResults().get(i).getGeometry().getLocation().getLat(),response.body().getResults().get(i).getGeometry().getLocation().getLng());
-
-                    if(response.body().getResults().get(i).getPriceLevel()==null) {
-                        pricer=0;
-                    }
-                    else {
-                        pricer=response.body().getResults().get(i).getPriceLevel();
-                    }
-                    if(response.body().getResults().get(i).getRating()==null)
-                    {
-                        rating=0;
-                    }
-                    else
-                    {
-                        rating=response.body().getResults().get(i).getRating();
-                    }
-                    placeList.add(new PlaceInformation(response.body().getResults().get(i).getName(),
-                            response.body().getResults().get(i).getVicinity(),
-                            response.body().getResults().get(i).getIcon(),
-                            pricer,
-                            rating,
-                            latLng));
-
-                }
-                view.returnedPlaces(placeList);
-            }
-
-            @Override
-            public void onFailure(Call<ClosePlacesPojo> call, Throwable t) {
-
-            }
-        });
+        Threader threader=new Threader(latLngCurrent,view);
+        Thread thread=new Thread(threader);
+        thread.start();
+//        retrofit2.Call<ClosePlacesPojo> myCall=RetroFitHelper.callPlaces(latLngCurrent);
+//        myCall.enqueue(new Callback<ClosePlacesPojo>() {
+//            @Override
+//            public void onResponse(Call<ClosePlacesPojo> call, Response<ClosePlacesPojo> response) {
+//                for (int i = 0; i < 20; i++) {
+//                    latLng=new LatLng(response.body().getResults().get(i).getGeometry().getLocation().getLat(),response.body().getResults().get(i).getGeometry().getLocation().getLng());
+//
+//                    if(response.body().getResults().get(i).getPriceLevel()==null) {
+//                        pricer=0;
+//                    }
+//                    else {
+//                        pricer=response.body().getResults().get(i).getPriceLevel();
+//                    }
+//                    if(response.body().getResults().get(i).getRating()==null)
+//                    {
+//                        rating=0;
+//                    }
+//                    else
+//                    {
+//                        rating=response.body().getResults().get(i).getRating();
+//                    }
+//                    placeList.add(new PlaceInformation(response.body().getResults().get(i).getName(),
+//                            response.body().getResults().get(i).getVicinity(),
+//                            response.body().getResults().get(i).getIcon(),
+//                            pricer,
+//                            rating,
+//                            latLng));
+//
+//                }
+//                view.returnedPlaces(placeList);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ClosePlacesPojo> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 
