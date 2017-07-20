@@ -114,7 +114,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        Criteria crit=new Criteria();
 //        crit.setAccuracy(Criteria.ACCURACY_FINE);
 //        locationManger.getBestProvider(crit,false);
-        locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
+        //should check for wheather netword or GPS is available
+        locationManger.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, this);
         Log.d(TAG, "LocationTracker: ");
     }
 
@@ -190,6 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
 
+        Log.d(TAG, "onStatusChanged: "+s);
     }
 
     @Override
