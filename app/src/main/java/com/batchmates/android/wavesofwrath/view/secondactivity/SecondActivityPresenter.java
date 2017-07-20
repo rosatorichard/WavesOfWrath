@@ -1,11 +1,20 @@
 package com.batchmates.android.wavesofwrath.view.secondactivity;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 
+import com.batchmates.android.wavesofwrath.R;
 import com.batchmates.android.wavesofwrath.model.PlaceInformation;
 import com.batchmates.android.wavesofwrath.model.closeplaces.ClosePlacesPojo;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,5 +108,21 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
 
         }
 
+    }
+
+    @Override
+    public void setMarkersOnMap(GoogleMap mMap,List<PlaceInformation> placeInformations,BitmapDrawable bitmapdraw) {
+        mMap.clear();
+        placeList = placeInformations;
+        int height = 125;
+        int width = 125;
+        Bitmap b = bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        for (int i = 0; i < placeInformations.size(); i++) {
+            mMap.addMarker(new MarkerOptions().title(placeInformations.get(i).getName())
+                    .snippet(placeInformations.get(i).getAddress())
+                    .position(placeInformations.get(i).getLocation()).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+        }
     }
 }

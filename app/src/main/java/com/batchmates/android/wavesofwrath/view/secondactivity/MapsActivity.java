@@ -101,12 +101,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng firstLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 CameraUpdate cam = CameraUpdateFactory.newLatLngZoom(firstLatLng, 15);
                 mMap.animateCamera(cam);
-                LatLng position = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-
                 //right here
                 createMyMarker();
-                LatLng currentLat=new LatLng(location.getLatitude(),location.getLongitude());
-                presenter.placesCloseby(currentLat);
+                presenter.placesCloseby(firstLatLng);
             }
         });
 
@@ -199,19 +196,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void returnedPlaces(List<PlaceInformation> placeInformations) {
 
-        mMap.clear();
-        currentList = placeInformations;
-        int height = 125;
-        int width = 125;
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.treasure_chest);
-        Bitmap b = bitmapdraw.getBitmap();
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-        for (int i = 0; i < placeInformations.size(); i++) {
-            mMap.addMarker(new MarkerOptions().title(placeInformations.get(i).getName())
-                    .snippet(placeInformations.get(i).getAddress())
-                    .position(placeInformations.get(i).getLocation()).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-
-        }
+        presenter.setMarkersOnMap(mMap,placeInformations,bitmapdraw);
         createMyMarker();
     }
 }
