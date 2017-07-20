@@ -1,5 +1,7 @@
 package com.batchmates.android.wavesofwrath.view.secondactivity;
 
+import android.util.Log;
+
 import com.batchmates.android.wavesofwrath.model.PlaceInformation;
 import com.batchmates.android.wavesofwrath.model.closeplaces.ClosePlacesPojo;
 import com.google.android.gms.maps.model.LatLng;
@@ -17,6 +19,7 @@ import retrofit2.Response;
 
 public class Threader extends Thread {
 
+    private static final String TAG = "Threader";
     List<PlaceInformation> placeList=new ArrayList<>();
     private LatLng latLng;
     private int pricer=0;
@@ -61,6 +64,7 @@ public class Threader extends Thread {
                             latLng));
 
                 }
+                Log.d(TAG, "onResponse: call return");
                 view.returnedPlaces(placeList);
             }
 

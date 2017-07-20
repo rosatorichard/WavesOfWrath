@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.service.quicksettings.TileService;
@@ -110,7 +111,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         LocationManager locationManger = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        Criteria crit=new Criteria();
+//        crit.setAccuracy(Criteria.ACCURACY_FINE);
+//        locationManger.getBestProvider(crit,false);
         locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
+        Log.d(TAG, "LocationTracker: ");
     }
 
     private void setUpDagger() {
@@ -200,6 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void returnedPlaces(List<PlaceInformation> placeInformations) {
 
+        Log.d(TAG, "returnedPlaces: replacing markers");
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.treasure_chest);
         presenter.setMarkersOnMap(mMap,placeInformations,bitmapdraw);
         createMyMarker();
