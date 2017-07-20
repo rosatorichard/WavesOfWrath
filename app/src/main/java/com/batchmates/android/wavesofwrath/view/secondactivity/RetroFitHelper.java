@@ -17,20 +17,19 @@ import retrofit2.http.Query;
 
 public class RetroFitHelper {
 
-    private static final String BASE_URL="https://maps.googleapis.com/maps/";
-    private static final String QUERY_ZIP="500";
-    private static final String APP_ID="AIzaSyCZbgGY4IMPsS20u_dVlhZUy-MTq0TWlss";
-    private static  String QUERY_LOCAL = "33.9896094,-84.45333540000001";
-    private static final int FOOD=Place.TYPE_FOOD;
+    private static final String BASE_URL = "https://maps.googleapis.com/maps/";
+    private static final String QUERY_ZIP = "500";
+    private static final String APP_ID = "AIzaSyCZbgGY4IMPsS20u_dVlhZUy-MTq0TWlss";
+    private static String QUERY_LOCAL = "33.9896094,-84.45333540000001";
+    private static final int FOOD = Place.TYPE_FOOD;
 
 
-    public static Call<ClosePlacesPojo> callPlaces(LatLng latLng)
-    {
-        String newString= latLng.latitude+","+latLng.longitude;
-        QUERY_LOCAL=newString;
-        Retrofit retrofit=Create();
+    public static Call<ClosePlacesPojo> callPlaces(LatLng latLng) {
+        String newString = latLng.latitude + "," + latLng.longitude;
+        QUERY_LOCAL = newString;
+        Retrofit retrofit = Create();
         places places = retrofit.create(RetroFitHelper.places.class);
-        return places.getNearbyLocations(QUERY_LOCAL,500,APP_ID,"true");
+        return places.getNearbyLocations(QUERY_LOCAL, 500, APP_ID, "true");
 
     }
 
@@ -44,7 +43,7 @@ public class RetroFitHelper {
 //    }
 
     private static Retrofit Create() {
-        Retrofit retro= new Retrofit.Builder()
+        Retrofit retro = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -52,11 +51,14 @@ public class RetroFitHelper {
         return retro;
     }
 
-    public interface places{
+    public interface places {
 
-//        &pagetoken
+        //        &pagetoken
         @GET("api/place/nearbysearch/json?")
-        Call<ClosePlacesPojo> getNearbyLocations(@Query("location")String coord,@Query("radius")int radius,@Query("key")String key,@Query("sensor")String bool);
+        Call<ClosePlacesPojo> getNearbyLocations(@Query("location") String coord,
+                                                 @Query("radius") int radius,
+                                                 @Query("key") String key,
+                                                 @Query("sensor") String bool);
 
 //        @GET("api/place/nearbysearch/json?sensor=true&key=AIzaSyCZbgGY4IMPsS20u_dVlhZUy-MTq0TWlss")
 //        Call<ClosePlacesPojo> getNearbyLocations2(@Query("location")String coord,@Query("type")int food,@Query("radius")int radius);
