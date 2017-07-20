@@ -50,6 +50,8 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
 
     @Override
     public void placesCloseby(LatLng latLngCurrent) {
+
+
         retrofit2.Call<ClosePlacesPojo> myCall=RetroFitHelper.callPlaces(latLngCurrent);
         myCall.enqueue(new Callback<ClosePlacesPojo>() {
             @Override
@@ -78,8 +80,8 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
                             rating,
                             latLng));
 
-                    view.returnedPlaces(placeList);
                 }
+                view.returnedPlaces(placeList);
             }
 
             @Override

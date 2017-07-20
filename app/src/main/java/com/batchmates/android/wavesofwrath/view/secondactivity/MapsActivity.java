@@ -99,9 +99,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onSuccess(Location location) {
                 currentLocation = location;
                 LatLng firstLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                //animate the camera to my position
                 CameraUpdate cam = CameraUpdateFactory.newLatLngZoom(firstLatLng, 15);
                 mMap.animateCamera(cam);
-                //right here
+                //create marker
                 createMyMarker();
                 presenter.placesCloseby(firstLatLng);
             }
@@ -170,7 +172,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         currentLocation = location;
         myselfLatLgn = new LatLng(location.getLatitude(), location.getLongitude());
         myself.setPosition(myselfLatLgn);
-        //presenter.placesCloseby(myselfLatLgn);
+
+        //updates the map as you move
+        presenter.placesCloseby(myselfLatLgn);
 
         Log.d(TAG, "onLocationChanged: Location Changed");
         //how i will set up encounters
