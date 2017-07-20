@@ -173,7 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         currentLocation = location;
         myselfLatLgn = new LatLng(location.getLatitude(), location.getLongitude());
         myself.setPosition(myselfLatLgn);
-        presenter.placesCloseby(myselfLatLgn);
+        //presenter.placesCloseby(myselfLatLgn);
 
         Log.d(TAG, "onLocationChanged: Location Changed");
         //how i will set up encounters
