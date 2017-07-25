@@ -16,6 +16,11 @@ public class BattleActivity extends AppCompatActivity implements ThirdActivityCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
 
+        setUpDagger();
+        presenter.addView(this);
+    }
+
+    private void setUpDagger() {
         DaggerThirdActivityComponent.create().inject(this);
     }
 
