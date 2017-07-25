@@ -111,11 +111,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         LocationManager locationManger = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        Criteria crit=new Criteria();
-//        crit.setAccuracy(Criteria.ACCURACY_FINE);
-//        locationManger.getBestProvider(crit,false);
         //should check for wheather netword or GPS is available
-        locationManger.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, this);
+
+        if (LocationManager.GPS_PROVIDER != null) {
+            locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
+        } else {
+            if (LocationManager.NETWORK_PROVIDER != null) {
+                locationManger.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, this);
+            } else {
+                LocationTracker();
+            }
+        }
         Log.d(TAG, "LocationTracker: ");
     }
 
@@ -175,13 +181,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
+
+
         currentLocation = location;
         myselfLatLgn = new LatLng(location.getLatitude(), location.getLongitude());
         myself.setPosition(myselfLatLgn);
 
         //updates the map as you move
         presenter.placesCloseby(myselfLatLgn);
-
         Log.d(TAG, "onLocationChanged: Location Changed");
         //how i will set up encounters
         //presenter.checkEncounter(myself);
@@ -191,7 +198,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
 
-        Log.d(TAG, "onStatusChanged: "+s);
+        Log.d(TAG, "onStatusChanged: " + s);
     }
 
     @Override
@@ -209,7 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Log.d(TAG, "returnedPlaces: replacing markers");
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.treasure_chest);
-        presenter.setMarkersOnMap(mMap,placeInformations,bitmapdraw);
+        presenter.setMarkersOnMap(mMap, placeInformations, bitmapdraw);
         createMyMarker();
     }
 }
