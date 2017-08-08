@@ -122,11 +122,14 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
         int height = 125;
         int width = 125;
         Bitmap b = bitmapdraw.getBitmap();
+        Marker marker;
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
         for (int i = 0; i < placeInformations.size(); i++) {
-            mMap.addMarker(new MarkerOptions().title(placeInformations.get(i).getName())
+            marker= mMap.addMarker(new MarkerOptions().title(placeInformations.get(i).getName())
                     .snippet(placeInformations.get(i).getAddress())
                     .position(placeInformations.get(i).getLocation()).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+            marker.setTag(placeInformations.get(i));
 
         }
     }
