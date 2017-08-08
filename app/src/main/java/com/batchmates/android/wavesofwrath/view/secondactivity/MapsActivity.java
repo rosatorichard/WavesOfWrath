@@ -185,6 +185,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 {
                     Log.d(TAG, "onInfoWindowClick: enter battle");
                 }
+//                marker.remove();
             }
         });
     }
