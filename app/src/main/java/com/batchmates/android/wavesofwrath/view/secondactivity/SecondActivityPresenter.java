@@ -117,7 +117,7 @@ public class SecondActivityPresenter implements SecondActivityContract.Presenter
     @Override
     public void setMarkersOnMap(GoogleMap mMap,List<PlaceInformation> placeInformations,BitmapDrawable bitmapdraw) {
         Log.d(TAG, "setMarkersOnMap: markers set");
-        mMap.clear();
+//        mMap.clear();
         placeList = placeInformations;
         int height = 125;
         int width = 125;

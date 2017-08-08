@@ -232,6 +232,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG, "returnedPlaces: replacing markers");
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.treasure_chest);
         presenter.setMarkersOnMap(mMap, placeInformations, bitmapdraw);
-        createMyMarker();
+//        createMyMarker();
     }
 }
