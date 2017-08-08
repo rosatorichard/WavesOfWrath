@@ -2,6 +2,7 @@ package com.batchmates.android.wavesofwrath.view.secondactivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -171,6 +172,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d(TAG, "onMarkerClick: " + marker.getTitle());
                 Log.d(TAG, "onMarkerClick: " + marker.getSnippet());
                 return false;
+            }
+        });
+        
+        
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                PlaceInformation placeInformation= (PlaceInformation) marker.getTag();
+                if (currentLocation.getLatitude()==placeInformation.getLocation().latitude 
+                        && currentLocation.getLongitude()==placeInformation.getLocation().longitude)
+                {
+                    Log.d(TAG, "onInfoWindowClick: enter battle");
+                }
             }
         });
     }
